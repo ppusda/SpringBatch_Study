@@ -1,9 +1,10 @@
-package com.example.springbatch_study;
+package com.example.springbatch_study.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -20,6 +21,7 @@ public class HelloJobConfiguration {
     public Job helloJob(JobRepository jobRepository, Step simpleStep1) {
         return new JobBuilder("HelloJob", jobRepository)
                 .start(simpleStep1)
+                .incrementer(new RunIdIncrementer())
                 .build();
     }
     @Bean

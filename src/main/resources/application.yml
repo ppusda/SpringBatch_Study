@@ -1,15 +1,21 @@
 spring:
-  batch:
-    job:
-      enabled: true
-  h2:
-    console:
+  threads:
+    virtual:
       enabled: true
   datasource:
-    url: jdbc:h2:mem:db;MODE=MYSQL;
+    url: jdbc:h2:./db_dev;MODE=MYSQL
     username: sa
     password:
+    driver-class-name: org.h2.Driver
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        format_sql: true
+        highlight_sql: true
+        use_sql_comments: true
+  batch:
+    jdbc:
+      initialize-schema: always
